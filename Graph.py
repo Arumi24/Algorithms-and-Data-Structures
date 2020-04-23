@@ -134,44 +134,6 @@ class DijkstrasAlgorithm(object):
         pp.pprint(self.table)
 
 
-class Stack(object):
-
-    def __init__(self):
-        self.stack=[]
-
-    def isEmpty(self):
-        
-        if len(self.stack)==0:
-            return True
-        else:
-            return False
-
-    def push(self,entity):
-        self.stack.append(entity)
-
-    def pop(self):
-        self.stack.pop()
-
-
-class Queue(object):
-
-    def __init__(self):
-        self.queue=[]
-
-    def isEmpty(self):
-        
-        if len(self.queue)==0:
-            return True
-        else:
-            return False
-
-    def enqueue(self,entity):
-        self.queue.append(entity)
-
-    def dequeue(self):
-        self.queue.pop(0)
-
-
 def main():
     
     graph=WeightedDirectedGraph(Vertex(0))
