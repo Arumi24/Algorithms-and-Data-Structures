@@ -136,12 +136,9 @@ int main()
     tree.insert(21,1,1);
     tree.insert(22,1,1);
 
-
     tree.printPreOrder();
     cout <<endl;
-
     tree.printPostOrder();
-
 }
 
     
