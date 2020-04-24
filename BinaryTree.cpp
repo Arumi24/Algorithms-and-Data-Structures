@@ -143,7 +143,6 @@ void BinaryTree::printPreOrder(Node *node)
 {
     if (node != NULL)
     {
-
         cout << node->key_value << endl;
         printPreOrder(node->left);
         printPreOrder(node->right);
