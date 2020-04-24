@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace std;
 
-
-
 struct Node
 {
     int index;
@@ -27,9 +25,7 @@ class LinkedList
     private:
         void insert(int value,Node *node);
         void insert(int value,int index,Node *node);
-
         Dummy *head;
-
 };
 
 LinkedList::LinkedList()
@@ -69,7 +65,6 @@ void LinkedList::insert(int value)
     {
         insert(value,head->next);
     }
-    
 }
 
 void LinkedList::insert(int value,int index,Node *node)
@@ -98,19 +93,14 @@ void LinkedList::insert(int value,int index,Node *node)
             newNode->value=value;
             newNode->next=node->next;
             newNode->prev=node;
-
             node->next->prev=newNode;
-            node->next=newNode;
-               
+            node->next=newNode;          
         }
-        
-
     }
     else
     {
         insert(value,index,node->next);
     }
-    
 }
 
 void LinkedList::insert(int value,int index)
