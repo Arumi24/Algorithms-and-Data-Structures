@@ -21,8 +21,7 @@ public:
     void printPreOrder();
     void printPostOrder();
     void printLevelOrder();
-
-    
+    void removeNode(int value);
 
 private:
     void insert(int key, Node *node);
@@ -31,6 +30,9 @@ private:
     void printPreOrder(Node *node);
     void printPostOrder(Node *node);
     void printLevelOrder(Node *node, int level);
+    void removeNode(int value, Node *node);
+    int findMax(Node *node);
+    int findMin(Node *node);
 
     int height;
     Node *root;
@@ -127,7 +129,7 @@ void BinaryTree::printInOrder(Node *node)
     if (node != NULL)
     {
         printInOrder(node->left);
-        cout << node->key_value << " ";
+        cout << node->key_value << endl;
         printInOrder(node->right);
     }
 }
@@ -142,7 +144,7 @@ void BinaryTree::printPreOrder(Node *node)
     if (node != NULL)
     {
 
-        cout << node->key_value << " ";
+        cout << node->key_value << endl;
         printPreOrder(node->left);
         printPreOrder(node->right);
     }
@@ -159,7 +161,7 @@ void BinaryTree::printPostOrder(Node *node)
     {
         printPostOrder(node->left);
         printPostOrder(node->right);
-        cout << node->key_value << " ";
+        cout << node->key_value << endl;
     }
 }
 
@@ -193,7 +195,99 @@ void BinaryTree::printLevelOrder()
     for (int i = 0; i <= height; i++)
     {
         printLevelOrder(root, i);
+        cout << endl;
     }
+}
+
+int BinaryTree::findMax(Node *node)
+{
+    if (node->right != NULL)
+    {
+        return findMax(node->right);
+    }
+    else
+    {
+        return (node->key_value);
+    }
+}
+
+int BinaryTree::findMin(Node *node)
+{
+    if (node->left != NULL)
+    {
+        return findMax(node->left);
+    }
+    else
+    {
+        return (node->key_value);
+    }
+}
+
+void BinaryTree::removeNode(int value, Node *node)
+{
+
+    if (node->left != NULL)
+    {
+        if (node->left->key_value == value && (node->left->left == NULL && node->left->right == NULL))
+        {
+
+            delete node->left;
+            node->left = NULL;
+        }
+
+        else if (node->left->key_value == value && (node->left->left != NULL && node->left->right == NULL))
+        {
+            node->left = node->left->left;
+        }
+
+        else if (node->left->key_value == value && (node->left->left == NULL && node->left->right != NULL))
+        {
+            node->left = node->left->right;
+        }
+
+        else if (node->left->key_value == value && (node->left->left != NULL && node->left->right != NULL))
+        {
+            node->left->key_value = findMax(node->left);
+            removeNode(node->left->key_value, node->left);
+        }
+        else
+        {
+            removeNode(value, node->left);
+        }
+    }
+    if (node->right != NULL)
+    {
+        if (node->right->key_value == value && (node->right->left == NULL && node->right->right == NULL))
+        {
+            delete node->right;
+            node->right = NULL;
+        }
+
+        else if (node->right->key_value == value && (node->right->left != NULL && node->right->right == NULL))
+        {
+            node->right = node->right->left;
+        }
+
+        else if (node->right->key_value == value && (node->right->left == NULL && node->right->right != NULL))
+        {
+            node->right = node->right->right;
+        }
+
+        else if (node->right->key_value == value && (node->right->left != NULL && node->right->right != NULL))
+        {
+            node->right->key_value = findMin(node->right);
+            removeNode(node->right->key_value, node->right);
+        }
+        else
+        {
+            removeNode(value, node->right);
+        }
+    }
+}
+
+void BinaryTree::removeNode(int value)
+{
+    removeNode(value, root);
 }
 
 int main()
@@ -204,11 +298,18 @@ int main()
     tree.insert(15);
     tree.insert(14);
     tree.insert(25);
+    tree.insert(21);
+    tree.insert(30);
     tree.insert(3);
     tree.insert(5);
     tree.insert(7);
     tree.insert(2);
+    tree.insert(1);
 
+    tree.removeNode(25);
+
+    tree.printLevelOrder();
+    cout << endl;
     tree.printInOrder();
     cout << endl;
     tree.printPreOrder();
