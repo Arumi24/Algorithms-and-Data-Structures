@@ -227,7 +227,6 @@ void RedBlack_Tree::insert(int value, Node *node)
 
             if (node->color != BLACK)
             {
-
                 restoreProperty(node->right);
             }
         }
@@ -250,7 +249,6 @@ void RedBlack_Tree::insert(int value, Node *node)
 
             if (node->color != BLACK)
             {
-
                 restoreProperty(node->left);
             }
         }
